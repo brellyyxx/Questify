@@ -7,7 +7,7 @@ import { useAudioPlayer } from 'expo-audio';
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 export default function App() {
-  const [confettiKey, setConfettiKey] = useState(0);
+  const [confettiKey, setConfettiKey] = useState(null);
 
   const player = useAudioPlayer(require("./assets/buttonClickSound.mp3"));
 
@@ -17,13 +17,14 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ConfettiCannon
-        key={confettiKey}
-        count={60}
-        origin={{ x: 220, y: 0 }}
-        fadeOut={true}
-        autoStart={true}
-      />
+      {confettiKey && (
+        <ConfettiCannon
+          key={confettiKey}
+          count={40}
+          origin={{ x: 20, y: 0 }}
+          fadeOut={true}
+          autoStart={true}
+        />
       )}
       <Text style={styles.textTask}>{task}</Text>
       <Text style={styles.allTasks}>{tasks.length} Aufgaben verfügbar</Text>
@@ -38,7 +39,7 @@ export default function App() {
           player.play();
 
           setTask(tasks[randomIndex]);
-          setConfettiKey(prev => prev + 1);
+          setConfettiKey(Date.now());
         }}
 
       >
