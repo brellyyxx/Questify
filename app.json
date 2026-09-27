@@ -8,6 +8,7 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
+      "bundleIdentifier": "com.brellyyxx.Questify"
     },
     "android": {
       "adaptiveIcon": {
