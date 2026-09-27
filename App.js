@@ -3,8 +3,12 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { tasks } from "./tasks";
 import { useState } from 'react';
+import { useAudioPlayer } from 'expo-audio';
 
 export default function App() {
+
+  const player = useAudioPlayer(require("./assets/buttonClickSound.mp3"));
+
   const [task, setTask] = useState(
     tasks[Math.floor(Math.random() * tasks.length)]
   );
@@ -17,9 +21,12 @@ export default function App() {
       {/* button für neue aufgabe */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
+        onPress={async () => {
           const randomIndex = Math.floor(Math.random() * tasks.length);
-          console.log(randomIndex);
+
+          await player.seekTo(0);
+          player.play();
+
           setTask(tasks[randomIndex]);
         }}
 
